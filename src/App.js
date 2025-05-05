@@ -1,5 +1,6 @@
-import React from "react";
-import logo from './logo.svg';
+import React, { Component } from "react";
+// import logo from './logo.svg';
+import logo from"./assets/images/kitten.png"
 import './App.css';
 import Heading from "./Heading";
 import Card from "./Card";
@@ -10,6 +11,11 @@ import RegisterForm from "./components/RegisterForm";
 import Promo from "./components/Promo";
 import Contact from "./components/Contact";
 import { Routes, Route, Link } from "react-router-dom";
+
+import ReactPlayer from "react-player/youtube";
+
+import SimpleCalculator from "./components/Calculator/SimpleCalculator"
+
 
 
 function handleClick() {
@@ -30,6 +36,7 @@ function App() {
 
   return (
     <div className="App">
+        <img src={logo} alt="Logo" />
         <Heading />
         <div className="App_example1">
           {/* example1 */}
@@ -61,9 +68,50 @@ function App() {
             <Route path="/contact" element={<Contact />}></Route>
           </Routes>
 
+          <MyVideo />
+
+          <SimpleCalculator />
         </div>
     </div>
   );
 }
+
+const MyVideo = () => {
+
+  const bird1 = new Audio( 
+    "https://upload.wikimedia.org/wikipedia/commons/9/9b/Hydroprogne_caspia_-_Caspian_Tern_XC432679.mp3" 
+  ); 
+ 
+  const bird2 = new Audio( 
+    "https://upload.wikimedia.org/wikipedia/commons/b/b5/Hydroprogne_caspia_-_Caspian_Tern_XC432881.mp3" 
+  ); 
+ 
+  function toggle1() { 
+    if (bird1.paused) { 
+      bird1.play(); 
+    } else { 
+      bird1.pause(); 
+    } 
+  }; 
+ 
+  function toggle2() { 
+    if (bird2.paused) { 
+      bird2.play(); 
+    } else { 
+      bird2.pause(); 
+    } 
+  }; 
+
+
+  return (
+    
+    <div>
+      <ReactPlayer url='https://www.youtube.com/watch?v=T8TZQ6k4SLE' />
+      <button onClick={toggle1}>Caspian Tern 1</button> 
+      <button onClick={toggle2}>Caspian Tern 2</button> 
+    </div>
+
+  );
+};
 
 export default App;
