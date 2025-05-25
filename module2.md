@@ -105,6 +105,36 @@ function TextInputWithFocusButton() {
 - Using the ref attribute on the input element, we can then access the current value and invoke the focus() method on it, thereby focusing the input field.
 - There are situations where accessing the DOM directly is needed, and this is where the useRef hook comes into play.
     
+
+## useMemo
+{a: ‘hi’, b: ‘bye’} !== {a: ‘hi’, b: ‘bye’}
+To understand what’s happening, you need to remember that in JavaScript, the below assertion is true:
+
+That is because object comparison in JavaScript is done by reference. Every time a new re-render happens in the App component, a new instance of the value object is created, resulting in the provider performing a comparison against its previous value and determining that it has changed, hence informing all context consumers that they should re-render.
+
+```
+const App = () => {
+const a = 'hi';
+const b = 'bye';
+const value = useMemo(() => ({a, b}), [a, b]);
+
+  return (
+ <AppContext.Provider value={value}>
+ <ComponentA />
+ </AppContext.Provider>
+ );
+};
+
+const ComponentA = React.memo(() => <ComponentB />);
+const ComponentB = () => <ComponentC />;
+const ComponentC = () => {
+const contextValue = useContext(AppContext);
+ return null;
+};
+```
+
+it suffices to say that useMemo will memoize the returned value from the function passed as the first argument and will only re-run the computation if any of the values are passed into the array as a second argument change.
+
 # states
 - Recall the props is a feature of React that essentially allows you to hold information about the UI in the browser. In React, you also have another way to do this by using a similar concept called States, which also allows you to easily change how the component behaves in order to suit a given need.
 - States is important because it allows components to stay in sync with each other and ensure that your app behaves as intended, for example, if one component updates its State, all other components that depend on that State will automatically update too.
