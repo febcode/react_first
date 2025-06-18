@@ -26,7 +26,7 @@ function handleClick() {
     }
 
 
-function App() {
+function AppBasic() {
 
   const [fruits] = React.useState([
     {fruitName: 'apple', id: 1},
@@ -114,4 +114,4 @@ const MyVideo = () => {
   );
 };
 
-export default App;
+export default AppBasic;

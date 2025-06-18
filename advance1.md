@@ -157,4 +157,19 @@ const contextValue = useContext(AppContext);
 
 it suffices to say that useMemo will memoize the returned value from the function passed as the first argument and will only re-run the computation if any of the values are passed into the array as a second argument change.
 
+#### What is React.memo and when should you use it?
+React.memo is a higher-order component that prevents unnecessary re-renders of functional components when their props haven't changed.
+
+```
+const MyComponent = React.memo(({ value }) => {
+  console.log("Rendering...");
+  return <div>{value}</div>;
+});
+```
+When to use:
+
+Components that re-render often with the same props
+Performance-sensitive UIs
+Avoid overuse: Can make things complex with minimal gains.
+
 
